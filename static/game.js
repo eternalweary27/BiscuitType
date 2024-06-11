@@ -29,7 +29,7 @@ const LANGUAGE_TEXT_COLOUR = "pink";
 const DIFFICULTY_TEXT_COLOUR = "magenta";
 const TEXT_PADDING = 2;
 
-const EASY_TEXT_SPEED = canvas.width / -800;
+const EASY_TEXT_SPEED = canvas.width / -450;
 const MEDIUM_TEXT_SPEED = EASY_TEXT_SPEED * 1.35;
 const HARD_TEXT_SPEED = MEDIUM_TEXT_SPEED * 1.08;
 var TEXT_SPEED = MEDIUM_TEXT_SPEED;
@@ -38,8 +38,8 @@ const EASY_SPEED_INCREASE_PERCENT = 1.05;
 const MEDIUM_SPEED_INCREASE_PERCENT = 1.07;
 const HARD_SPEED_INCREASE_PERCENT = 1.08;
 var SPEED_INCREASE_PERCENT = MEDIUM_SPEED_INCREASE_PERCENT;
-const EASY_SPEED_LIMIT = EASY_TEXT_SPEED * 1.65;
-const MEDIUM_SPEED_LIMIT = MEDIUM_TEXT_SPEED * 1.70;
+const EASY_SPEED_LIMIT = EASY_TEXT_SPEED * 1.70;
+const MEDIUM_SPEED_LIMIT = MEDIUM_TEXT_SPEED * 1.85;
 const HARD_SPEED_LIMIT = HARD_TEXT_SPEED * 1.95;
 var SPEED_LIMIT = MEDIUM_SPEED_LIMIT;
 var display_difficulty = "Medium";
@@ -721,7 +721,9 @@ function mainGameLoop() {
         handleTypingGame();
     }
 
-    requestAnimationFrame(mainGameLoop);
+    setTimeout(() => {
+        requestAnimationFrame(mainGameLoop);
+    }, 1000 / 60);
 }
 
 async function saveScore(){
