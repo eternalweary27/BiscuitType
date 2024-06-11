@@ -29,7 +29,7 @@ const LANGUAGE_TEXT_COLOUR = "pink";
 const DIFFICULTY_TEXT_COLOUR = "magenta";
 const TEXT_PADDING = 2;
 
-const EASY_TEXT_SPEED = canvas.width / -450;
+const EASY_TEXT_SPEED = canvas.width / -600;
 const MEDIUM_TEXT_SPEED = EASY_TEXT_SPEED * 1.35;
 const HARD_TEXT_SPEED = MEDIUM_TEXT_SPEED * 1.08;
 var TEXT_SPEED = MEDIUM_TEXT_SPEED;
@@ -88,6 +88,7 @@ var CORRECT_SOUND;
 const music_volume_input = document.getElementById("music_volume");
 const ding_volume_input = document.getElementById("ding_volume");
 
+const FRAME_DURATION = 1 / 60;
 const STARTING_LIVES = 3;
 var player_lives = STARTING_LIVES;
 var characters_typed = 0;
@@ -456,7 +457,7 @@ function getRandomStar(){
         random_y = getRandomNumInRange(random_radius, canvas.height*(1-PLATFORM_HEIGHT_PERCENT)-random_radius);
         current_star = {x: random_x, y: random_y, radius: random_radius};
     }
-    let scaled_star_speed = (Math.pow(random_radius,2) / MAX_STAR_RADIUS) * MAX_STAR_SPEED;
+    let scaled_star_speed = (random_radius / MAX_STAR_RADIUS) * MAX_STAR_SPEED;
     current_star = new Star(random_x, random_y, scaled_star_speed, random_radius, STAR_COLOUR);
     return current_star;
 }
@@ -705,25 +706,28 @@ function handleTypingGame(){
     }
 }
 
+var last_update = new Date();
 function mainGameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawRect(0,0,canvas.width,canvas.height, bonus_mode ? BONUS_BACKGROUND_COLOUR : BACKGROUND_COLOUR);
-    drawPlatform();
-
-    if(!game_started){
-        drawStartScreen();
+    let time_elapsed = (new Date() - last_update) / 1000;
+    if(time_elapsed > FRAME_DURATION){
+        last_update = new Date();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawRect(0,0,canvas.width,canvas.height, bonus_mode ? BONUS_BACKGROUND_COLOUR : BACKGROUND_COLOUR);
+        drawPlatform();
+    
+        if(!game_started){
+            drawStartScreen();
+        }
+    
+        else if(player_lives <= 0){
+            drawGameOverScreen();
+    
+        }else{
+            handleTypingGame();
+        }
     }
 
-    else if(player_lives <= 0){
-        drawGameOverScreen();
-
-    }else{
-        handleTypingGame();
-    }
-
-    setTimeout(() => {
-        requestAnimationFrame(mainGameLoop);
-    }, 1000 / 60);
+    requestAnimationFrame(mainGameLoop);
 }
 
 async function saveScore(){
