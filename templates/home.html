@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 allign="center">Welcome to Biscuit Type!</h1>
+    <h5>This website was directly inspired by Bisqwit's WPSpeed Typing Game, shown <a href="https://www.youtube.com/watch?v=jnkOcAkLkBU&themeRefresh=1">here</a>.</h5>
+</div>
+
+<div class="container">
+    <h5>Music:</h5>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=YrPB8iNZIOM">Denos - Ai Vist Lo Lop 8-Bit - Have At Thee!</a></li>
+        <li><a href="https://www.youtube.com/watch?v=hj8dgILfSKQ">千本桜 - Senbonzakura 8-Bit</a></li>
+        <li><a href="https://www.youtube.com/watch?v=YYpUgGf9ob8">AVGN Intro Song 8-Bit</a></li>
+        <li><a href="https://www.youtube.com/watch?v=fNKyHPtFoYI">Ben 10 Theme 8-Bit</a></li>
+        <li><a href="https://www.youtube.com/watch?v=JuiEopu07Uw">Hell Song Sum 41 8-Bit</a></li>
+        <li><a href="https://www.youtube.com/watch?v=49rG1tgSSdg">Ievan Polkka 8-Bit Chiptune</a></li>
+        <li><a href="https://www.youtube.com/watch?v=LrIYu4Lcs2Y">Revenge 8-Bit Cover</a></li>
+        <li><a href="https://www.youtube.com/watch?v=ppw-wOF8cUw">Men of Harlech 8-Bit</a></li>
+        <li><a href="https://www.youtube.com/watch?v=DxjDtCJ0Ows">Ode to Joy 8-Bit</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <form method="POST">
+        <div class="form-group">
+            <label for="feedback_area">
+                If you have encountered any bugs while using the website or if you have any suggestions 
+                for new features or improvements, please report them here:
+            </label>
+            <textarea id = "feedback_area" name="feedback" class="form-control" rows="3" maxlength="2500"></textarea>
+
+            <label for="feedback_category">Select Category</label>
+            <select id = "feedback_category" name="feedback_category" class="form-select">
+                <option value="bug" selected>Bug</option>
+                <option value="feature">Feature</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

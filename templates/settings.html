@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <h3 allign="center">Settings</h3>
+        <div class="form-group">
+            <label for="language_selection">Select Default Language</label>
+            <select id="language_selection" name="language_selection" class="form-select" aria-label="language_selection">
+                <option value="english">English</option>
+                <option value="french">Français</option>
+                <option value="german">Deutsch</option>
+                <option value="spanish">Español</option>
+                <option value="finnish">Finnish</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="difficulty_selection">Select Default Difficulty</label>
+            <select id="difficulty_selection" name="difficulty_selection" class="form-select" aria-label="difficulty_selection">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="music_volume" style="margin-left: 2px">Music Volume</label>
+            <input id="music_volume" name="music_volume" type="range" min="0" max="1" step="0.1" style="width:200px">
+        </div>
+
+        <div class="form-group">
+            <label for="ding_volume" style="margin-left: 2px">Ding Volume</label>
+            <input id="ding_volume" name="ding_volume" type="range" min="0" max="1" step="0.1" style="width:200px">
+        </div>
+
+        <div class="form-group">
+            <label for="account_username">User-Name</label>
+            <input id="account_username" type="text" class="form-control" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="account_email">Email</label>
+            <input id="account_email" name="account_email" type="email" class="form-control">
+            <p id="email_help_message" hidden>Setting up your account email allows you to reset your password if you forget it</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Details</button>
+    </form>
+</div>
+
+<div class="container">
+    <input name="change_password" hidden>
+    <button id="change_password_button"  class="btn btn-secondary" type="submit">Change Password</button>
+</div>
+
+<div class="container">
+    <input name="delete_account" hidden>
+    <button id="delete_account_button" class="btn btn-danger">Delete Account</button>
+</div>
+
+<div id="delete_account_modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="delete_modal_title" class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Once you delete your account, all your profile data will be removed from the website. This action cannot be undone. Are you sure you want to continue?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="delete_account_confirmation_button" type="button" class="btn btn-danger">Delete Account</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>var user_settings = JSON.parse('{{ user_settings | tojson | safe }}');</script>
+<script type="text/javascript" src="../static/settings.js"></script>
+{% endblock %}

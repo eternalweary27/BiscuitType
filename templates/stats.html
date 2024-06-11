@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Stats{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form class="form-inline" method="GET">
+        <div class="form-group">
+            <label for="language_filter">Language </label>
+            <select id="language_filter" name="language" class="form-select" aria-label="language_filter">
+                <option value="all">All</option>
+                <option value="english">English</option>
+                <option value="french">Français</option>
+                <option value="german">Deutsch</option>
+                <option value="spanish">Español</option>
+                <option value="finnish">Finnish</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="difficulty_filter">Difficulty</label>
+            <select id="difficulty_filter" name="difficulty" class="form-select" aria-label="difficulty_filter">
+                <option value="all">All</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="time_filter">Time</label>
+            <select id="time_filter" name="time" class="form-select" aria-label="time_filter">
+                <option value="all">All</option>
+                <option value="10">Last 10</option>
+                <option value="100">Last 100</option>
+              </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Filter</button>
+    </form>
+</div>
+
+<div class="container">
+    <h3 allign="center">Stats</h3>
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Avg Points</h6>
+              <h5 class="card-text">{{user_stats.avg_points}}</h5>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Avg WPM</h6>
+              <h5 class="card-text">{{user_stats.avg_wpm}}</h5>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Highest Points</h6>
+              <h5 class="card-text">{{user_stats.highest_points}}</h5>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Highest WPM</h6>
+              <h5 class="card-text">{{user_stats.highest_wpm}}</h5>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">Games Played</h6>
+              <h5 class="card-text">{{user_stats.all_points|length}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-left: 0px">
+    <select id = "graph_filter" class="form-select" style="max-width: 100px">
+        <option value="points">Points</option>
+        <option value="wpm">WPM</option>
+    </select>
+    <div class="row">
+        <canvas id="scatter_plot" style="max-width: 500px; max-height:450px; margin-right: 10px"></canvas>
+        <canvas id="bar_chart" style="max-width: 500px; max-height:450px"></canvas>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>var user_stats = JSON.parse('{{ user_stats | tojson | safe }}');</script>
+<script type="text/javascript" src="../static/stats.js"></script>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .card{
+        width: 12rem;
+        margin-right: 5px;
+    }
+
+    .card-title{
+        color: grey;
+    }
+
+    .form-group{
+        margin-right: 20px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Leaderboards{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 allign="center">Leaderboards</h3>
+    <form class="form-inline" method="GET">
+        <div class="form-group">
+            <div class="dropdown d-inline-block">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-filter"></i> Sort By</button>
+                <div id = "sort_by_dropdown_menu" name="sort_by" class="dropdown-menu">
+                    <a class="dropdown-item" href="#" data-value="points">Highest Points</a>
+                    <a class="dropdown-item" href="#" data-value="wpm">Highest WPM</a>
+                    <a class="dropdown-item" href="#" data-value="recent">Most Recent</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input id="user_name_filter" name="user_name" type="text" placeholder="Search User-Name">
+        </div>
+
+        <div class="form-group">
+            <label for="language">Language </label>
+            <select id="language_filter" name="language" class="form-select" aria-label="language_filter">
+                <option value="all">All</option>
+                <option value="english">English</option>
+                <option value="french">Français</option>
+                <option value="german">Deutsch</option>
+                <option value="spanish">Español</option>
+                <option value="finnish">Finnish</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="difficulty_filter">Difficulty</label>
+            <select id="difficulty_filter" name="difficulty" class="form-select" aria-label="difficulty_filter">
+                <option value="all">All</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Search</button>
+    </form>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">User-Name</th>
+                <th scope="col">Points</th>
+                <th scope="col">WPM</th>
+                <th scope="col">Language</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody id="scores_table_body">
+            {% for score_record in score_records %}
+                <tr {% if score_record.is_current_user %} style="color: black" {% else %} style="color:grey"{% endif %}>
+                    <th scope="row">{{score_record.rank}}</th>
+                    <td>{{score_record.user_name}}<span class="emoji"> {{score_record.country_emoji}}</span></td>
+                    <td>{{score_record.points}}</td>
+                    <td>{{score_record.wpm}}</td>
+                    <td>{{score_record.language}}</td>
+                    <td>{{score_record.difficulty}}</td>
+                    <td>{{score_record.date}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page > 1 %}
+                <li class="page-item"><a id = "previous_page_link" class="page-link">Previous</a></li>
+            {% endif %}
+            
+            {% if page < total_pages %}
+                <li class="page-item"><a id = "next_page_link" class="page-link">Next</a></li>
+            {% endif %}
+        </ul>
+      </nav>
+      <p>Page {{ page }} of {{ total_pages }}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+var score_records = JSON.parse('{{ score_records | tojson | safe }}');
+var user_settings = JSON.parse('{{ user_settings | tojson | safe }}');
+var current_page = Number.parseInt("{{page}}");
+var total_pages = Number.parseInt("{{total_pages}}");
+</script>
+<script type="text/javascript" src="../static/leaderboards.js"></script>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .form-group{
+        margin-right: 20px;
+    }
+
+    .emoji {
+        font-size: 1.5em;
+    }
+</style>
+{% endblock %}

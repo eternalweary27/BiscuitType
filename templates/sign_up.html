@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Sign-Up{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <h3 allign="center">Account Creation</h3>
+        <div class="form-group">
+            <label for="user_name_input">User Name</label>
+            <input id="user_name_input" type="text" class="form-control" name="user_name" placeholder="Enter User Name" required>
+        </div>
+
+        {% include "password_entry.html" %}
+
+        <div class="form-group">
+            <label for="email_input">Enter an email address for password recovery [optional]</label>
+            <input id="email_input" type="email" class="form-control" name="email" placeholder="Enter Email">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign-Up</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="../static/password_handling.js"></script>
+{% endblock %}

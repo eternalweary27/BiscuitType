@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <h3 allign="center">Login</h3>
+        <div class="form-group">
+            <label for="user_name_input">User Name</label>
+            <input id="user_name_input" type="text" class="form-control" name="user_name" placeholder="Enter User Name" required>
+        </div>
+        <div class="form-group">
+            <label for="password_input">Password</label>
+            <input id="password_input" type="password" class="form-control" name="password" placeholder="Enter Password" required>
+            <div class="form-check">
+                <input id="show_password_checkbox" class="form-check-input" type="checkbox" value="">
+                <label class="form-check-label" for="show_password_checkbox">Reveal</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+<div class="container">
+    <button id="forgotten_password_button" class="btn btn-secondary">Forgotten Password?</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="../static/login.js"></script>
+{% endblock %}

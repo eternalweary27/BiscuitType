@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Enter Reset Code{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <h3 allign="center">Enter Reset Code</h3>
+        <div class="form-group">
+            <input id="reset_code_input" type="number" class="form-control" name="reset_code" placeholder="Enter 6-digit Reset Code" min="0" max="999999">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="container">
+    <form method="POST">
+        <input name="resend_code" value="true" hidden>
+        <button id="resend_reset_code_button" class="btn btn-secondary">Resend Reset Code</button>
+    </form>
+</div>
+{% endblock %}
